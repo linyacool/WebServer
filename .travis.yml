@@ -1,0 +1,14 @@
+language: cpp
+sudo: required
+dist: trusty
+compiler:
+  - g++
+os:
+  - linux
+# install:
+#   - sudo apt-get install libboost-dev
+env:
+  - BUILD_TYPE=debug
+  - BUILD_TYPE=release
+script:
+  - ./build.sh
