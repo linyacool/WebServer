@@ -1,0 +1,31 @@
+cc=g++ -std=c++11
+main: main.o RequestData.o epoll.o threadpool.o
+	$(cc) -o main main.o RequestData.o epoll.o threadpool.o -lpthread -lopencv_core -lopencv_imgproc -lopencv_highgui -lopencv_ml 
+main.o: main.cpp
+	$(cc) -I/usr/local/include/opencv -c main.cpp
+RequestData.o: requestData.h RequestData.cpp
+	$(cc) -I/usr/local/include/opencv -c RequestData.cpp
+epoll.o: epoll.h epoll.cpp
+	$(cc) -I/usr/local/include/opencv -c epoll.cpp
+threadpool.o: threadpool.h threadpool.cpp
+	$(cc) -I/usr/local/include/opencv -c threadpool.cpp
+.PHONY: clean
+clean:
+	-rm main *.o
+
+
+
+
+.PHONY : everything objs clean veryclean rebuild
+everything :
+	$(TARGET)
+all :
+	$(TARGET)
+objs :
+	$(OBJS)
+rebuild:
+	veryclean everything 
+clean :
+	rm -fr *.o
+veryclean :
+	clean rm -fr $(TARGET)
