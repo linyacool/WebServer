@@ -9,8 +9,7 @@ class AsyncLogging;
 const int kSmallBuffer = 4000;
 const int kLargeBuffer = 4000*1000;
 
-template<int SIZE>
-class FixedBuffer :noncopyable
+template<int SIZE> class FixedBuffer: noncopyable
 {
 public:
     FixedBuffer()
@@ -22,7 +21,7 @@ public:
 
     void append(const char* buf, size_t len)
     {
-        if (avail() > len)
+        if (avail() > static_cast<int>(len))
         {
             memcpy(cur_, buf, len);
             cur_ += len;
