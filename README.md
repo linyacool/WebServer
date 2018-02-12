@@ -16,6 +16,10 @@
 
 	./build.sh
 
+## Usage
+
+	./WebServer [-t thread numbers] [-p port] [-l log file path(begin with '/')]
+
 ## Technical points
 * 使用Epoll边沿触发的IO多路复用技术，非阻塞IO，使用Reactor模型
 * 使用多线程充分利用多核CPU，并使用线程池避免线程频繁创建销毁的开销

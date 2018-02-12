@@ -31,5 +31,6 @@
 *.out
 *.app
 
-# core
+# Otheres
 core
+.vscode
