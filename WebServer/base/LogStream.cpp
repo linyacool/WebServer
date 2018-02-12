@@ -10,7 +10,7 @@
 const char digits[] = "9876543210123456789";
 const char* zero = digits + 9;
 
-template<typename T>
+template<typename T> 
 size_t convert(char buf[], T value)
 {
     T i = value;
@@ -32,7 +32,6 @@ size_t convert(char buf[], T value)
 
     return p - buf;
 }
-
 
 template class FixedBuffer<kSmallBuffer>;
 template class FixedBuffer<kLargeBuffer>;

@@ -10,8 +10,8 @@ class AsyncLogging;
 class Logger
 {
 public:
-    ~Logger();
     Logger(const char *fileName, int line);
+    ~Logger();
     LogStream& stream() { return impl_.stream_; }
 
 private:

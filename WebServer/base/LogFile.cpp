@@ -18,8 +18,7 @@ LogFile::LogFile(const string& basename, int flushEveryN)
 }
 
 LogFile::~LogFile()
-{
-}
+{ }
 
 void LogFile::append(const char* logline, int len)
 {

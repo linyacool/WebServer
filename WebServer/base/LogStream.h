@@ -9,7 +9,8 @@ class AsyncLogging;
 const int kSmallBuffer = 4000;
 const int kLargeBuffer = 4000*1000;
 
-template<int SIZE> class FixedBuffer: noncopyable
+template<int SIZE> 
+class FixedBuffer: noncopyable
 {
 public:
     FixedBuffer()
@@ -31,7 +32,6 @@ public:
     const char* data() const { return data_; }
     int length() const { return static_cast<int>(cur_ - data_); }
 
-    // write to data_ directly
     char* current() { return cur_; }
     int avail() const { return static_cast<int>(end() - cur_); }
     void add(size_t len) { cur_ += len; }
@@ -42,7 +42,6 @@ public:
 
 private:
     const char* end() const { return data_ + sizeof data_; }
-    // Must be outline function for cookies.
 
     char data_[SIZE];
     char* cur_;
@@ -89,13 +88,9 @@ public:
     LogStream& operator<<(const char* str)
     {
         if (str)
-        {
-        buffer_.append(str, strlen(str));
-        }
+            buffer_.append(str, strlen(str));
         else
-        {
-        buffer_.append("(null)", 6);
-        }
+            buffer_.append("(null)", 6);
         return *this;
     }
 
