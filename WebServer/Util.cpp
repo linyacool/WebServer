@@ -225,7 +225,7 @@ void shutDownWR(int fd)
 int socket_bind_listen(int port)
 {
     // 检查port值，取正确区间范围
-    if (port < 1024 || port > 65535)
+    if (port < 0 || port > 65535)
         return -1;
 
     // 创建socket(IPv4 + TCP)，返回监听描述符

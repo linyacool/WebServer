@@ -33,6 +33,7 @@ public:
         thread_.join();
     }
 
+
 private:
     void threadFunc();
     typedef FixedBuffer<kLargeBuffer> Buffer;

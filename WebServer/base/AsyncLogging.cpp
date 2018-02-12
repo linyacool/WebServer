@@ -4,12 +4,12 @@
 #include <assert.h>
 #include <unistd.h>
 #include <functional>
-using namespace std;
 
-AsyncLogging::AsyncLogging(const string basename, int flushInterval)
+
+AsyncLogging::AsyncLogging(std::string logFileName_,int flushInterval)
   : flushInterval_(flushInterval),
     running_(false),
-    basename_(basename),
+    basename_(logFileName_),
     thread_(std::bind(&AsyncLogging::threadFunc, this), "Logging"),
     mutex_(),
     cond_(mutex_),
@@ -18,6 +18,7 @@ AsyncLogging::AsyncLogging(const string basename, int flushInterval)
     buffers_(),
     latch_(1)
 {
+    assert(logFileName_.size() > 1 && logFileName_[0] == '/');
     currentBuffer_->bzero();
     nextBuffer_->bzero();
     buffers_.reserve(16);
