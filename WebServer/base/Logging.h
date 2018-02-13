@@ -1,3 +1,5 @@
+// @Author Lin Ya
+// @Email xxbbb@vip.qq.com
 #pragma once
 #include "LogStream.h"
 #include <pthread.h>

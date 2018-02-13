@@ -1,3 +1,7 @@
+// @Author Lin Ya
+// @Email xxbbb@vip.qq.com
+
+// This file has not been used
 #pragma once
 #include "Channel.h"
 #include <pthread.h>

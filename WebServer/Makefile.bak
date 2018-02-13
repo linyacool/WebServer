@@ -1,3 +1,5 @@
+# @Author Lin Ya
+# @Email xxbbb@vip.qq.com
 # MAINSOURCE代表含有main入口函数的cpp文件，因为含有测试代码，
 # 所以要为多个目标编译，这里把Makefile写的通用了一点，
 # 以后加东西Makefile不用做多少改动

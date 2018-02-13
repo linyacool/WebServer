@@ -1,3 +1,5 @@
+// @Author Lin Ya
+// @Email xxbbb@vip.qq.com
 #include "HttpData.h"
 #include "time.h"
 #include "Channel.h"

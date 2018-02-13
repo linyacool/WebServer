@@ -1,3 +1,5 @@
+// @Author Lin Ya
+// @Email xxbbb@vip.qq.com
 #include "../Logging.h"
 #include "../Thread.h"
 #include <string>
