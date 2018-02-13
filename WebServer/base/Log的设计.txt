@@ -1,4 +1,5 @@
-Log的设计仿照了muduo库的设计
+Log的设计仿照了muduo库的设计,但我写的没那么复杂
+https://github.com/chenshuo/muduo
 
 与Log相关的类包括FileUtil、LogFile、AsyncLogging、LogStream、Logging。
 其中前4个类每一个类都含有一个append函数，Log的设计也是主要围绕这个append函数展开的。

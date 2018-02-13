@@ -313,18 +313,30 @@ URIState HttpData::parseURI()
     else 
         str.clear();
     // Method
-    pos = request_line.find("GET");
-    if (pos < 0)
+    int posGet = request_line.find("GET");
+    int posPost = request_line.find("POST");
+    int posHead = request_line.find("HEAD");
+
+    if (posGet >= 0)
     {
-        pos = request_line.find("POST");
-        if (pos < 0)
-            return PARSE_URI_ERROR;
-        else
-            method_ = METHOD_POST;
+        pos = posGet;
+        method_ = METHOD_GET;
+    }
+    else if (posPost >= 0)
+    {
+        pos = posPost;
+        method_ = METHOD_POST;
+    }
+    else if (posHead >= 0)
+    {
+        pos = posHead;
+        method_ = METHOD_HEAD;
     }
     else
-        method_ = METHOD_GET;
-    //printf("method_ = %d\n", method_);
+    {
+        return PARSE_URI_ERROR;
+    }
+
     // filename
     pos = request_line.find("/", pos);
     if (pos < 0)
@@ -520,7 +532,7 @@ AnalysisState HttpData::analysisRequest()
         // inBuffer_ = inBuffer_.substr(length);
         // return ANALYSIS_SUCCESS;
     }
-    else if (method_ == METHOD_GET)
+    else if (method_ == METHOD_GET || method_ == METHOD_HEAD)
     {
         string header;
         header += "HTTP/1.1 200 OK\r\n";
@@ -556,6 +568,9 @@ AnalysisState HttpData::analysisRequest()
         // 头部结束
         header += "\r\n";
         outBuffer_ += header;
+        
+        if (method_ == METHOD_HEAD)
+            return ANALYSIS_SUCCESS;
 
         int src_fd = open(fileName_.c_str(), O_RDONLY, 0);
         char *src_addr = static_cast<char*>(mmap(NULL, sbuf.st_size, PROT_READ, MAP_PRIVATE, src_fd, 0));

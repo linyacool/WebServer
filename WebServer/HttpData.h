@@ -64,7 +64,8 @@ enum ConnectionState
 enum HttpMethod
 {
     METHOD_POST = 1,
-    METHOD_GET
+    METHOD_GET,
+    METHOD_HEAD
 };
 
 enum HttpVersion

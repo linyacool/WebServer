@@ -10,6 +10,7 @@
 const char digits[] = "9876543210123456789";
 const char* zero = digits + 9;
 
+// From muduo
 template<typename T> 
 size_t convert(char buf[], T value)
 {
@@ -40,6 +41,7 @@ template class FixedBuffer<kLargeBuffer>;
 template<typename T>
 void LogStream::formatInteger(T v)
 {
+    // buffer容不下kMaxNumericSize个字符的话会被直接丢弃
     if (buffer_.avail() >= kMaxNumericSize)
     {
         size_t len = convert(buffer_.current(), v);

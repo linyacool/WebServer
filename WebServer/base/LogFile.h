@@ -5,9 +5,11 @@
 #include <memory>
 #include <string>
 
+// TODO 提供自动归档功能
 class LogFile : noncopyable
 {
 public:
+    // 每被append flushEveryN次，flush一下，会往文件写，只不过，文件也是带缓冲区的
     LogFile(const std::string& basename, int flushEveryN = 1024);
     ~LogFile();
 
