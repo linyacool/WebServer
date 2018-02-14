@@ -70,7 +70,7 @@ HttpData::HttpData(EventLoop *loop, int connfd):
 
 void HttpData::reset()
 {
-    inBuffer_.clear();
+    //inBuffer_.clear();
     fileName_.clear();
     path_.clear();
     nowReadPos_ = 0;
@@ -222,13 +222,11 @@ void HttpData::handleRead()
         if (!error_ && state_ == STATE_FINISH)
         {
 
-            if (keepAlive_ && connectionState_ == H_CONNECTED)
+            if ((keepAlive_ || inBuffer_.size() > 0) && connectionState_ == H_CONNECTED)
             {
                 this->reset();
                 events_ |= EPOLLIN;
             }
-            else
-                return;
         }
         else if (!error_ && connectionState_ != H_DISCONNECTED)
             events_ |= EPOLLIN;
@@ -398,7 +396,8 @@ HeaderState HttpData::parseHeaders()
     int key_start = -1, key_end = -1, value_start = -1, value_end = -1;
     int now_read_line_begin = 0;
     bool notFinish = true;
-    for (size_t i = 0; i < str.size() && notFinish; ++i)
+    size_t i = 0;
+    for (; i < str.size() && notFinish; ++i)
     {
         switch(hState_)
         {
@@ -501,7 +500,7 @@ HeaderState HttpData::parseHeaders()
     }
     if (hState_ == H_END_LF)
     {
-        str = str.substr(now_read_line_begin);
+        str = str.substr(i);
         return PARSE_HEADER_SUCCESS;
     }
     str = str.substr(now_read_line_begin);
