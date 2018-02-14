@@ -221,12 +221,12 @@ void HttpData::handleRead()
         // error_ may change
         if (!error_ && state_ == STATE_FINISH)
         {
-
-            if ((keepAlive_ || inBuffer_.size() > 0) && connectionState_ == H_CONNECTED)
-            {
-                this->reset();
-                events_ |= EPOLLIN;
-            }
+            this->reset();
+            // if ((keepAlive_ || inBuffer_.size() > 0) && connectionState_ == H_CONNECTED)
+            // {
+            //     this->reset();
+            //     events_ |= EPOLLIN;
+            // }
         }
         else if (!error_ && connectionState_ != H_DISCONNECTED)
             events_ |= EPOLLIN;
