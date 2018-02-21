@@ -286,12 +286,12 @@ void HttpData::handleConn()
         else
         {
             //cout << "close normally" << endl;
-            loop_->shutdown(channel_);
-            loop_->runInLoop(bind(&HttpData::handleClose, shared_from_this()));
-            // events_ |= (EPOLLIN | EPOLLET);
-            // //events_ |= (EPOLLIN | EPOLLET | EPOLLONESHOT);
-            // int timeout = DEFAULT_KEEP_ALIVE_TIME;
-            // loop_->updatePoller(channel_, timeout);
+            // loop_->shutdown(channel_);
+            // loop_->runInLoop(bind(&HttpData::handleClose, shared_from_this()));
+            events_ |= (EPOLLIN | EPOLLET);
+            //events_ |= (EPOLLIN | EPOLLET | EPOLLONESHOT);
+            int timeout = (DEFAULT_KEEP_ALIVE_TIME >> 1);
+            loop_->updatePoller(channel_, timeout);
         }
     }
     else if (!error_ && connectionState_ == H_DISCONNECTING && (events_ & EPOLLOUT))

@@ -535,10 +535,8 @@ void benchcore(const char *host,const int port,const char *req)
                 return;
             }
             s=Socket(host,port);        
-            //printf("s = %d\n", s);                  
             if(s<0) { failed++;continue;} 
             if(rlen!=write(s,req,rlen)) {failed++;close(s);continue;}
-            //printf("here 1\n");
             if(http10==0) 
             if(shutdown(s,1)) { failed++;close(s);continue;}
             if(force==0) 
@@ -547,10 +545,7 @@ void benchcore(const char *host,const int port,const char *req)
                 while(1)
                 {
                     if(timerexpired) break; 
-                    //printf("before\n");
                     i=read(s,buf,1500);
-                    //printf("i = %d\n", i);
-                    /* fprintf(stderr,"%d\n",i); */
                     if(i<0) 
                     { 
                         failed++;
@@ -563,10 +558,8 @@ void benchcore(const char *host,const int port,const char *req)
                     bytes+=i;
                 }
             }
-            //printf("here 2\n");
             if(close(s)) {failed++; continue;}
             speed++;
-            //printf("here\n");
         }
     }
         

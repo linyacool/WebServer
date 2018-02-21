@@ -53,13 +53,13 @@ int Socket(const char *host, int clientPort)
     
     if (sock < 0)
         return sock;
+
+    // int optval = 1;
+    // if(setsockopt(sock, SOL_SOCKET,  SO_REUSEPORT, &optval, sizeof(optval)) == -1)
+    //     return -1;
     if (connect(sock, (struct sockaddr *)&ad, sizeof(ad)) < 0)
         return -1;
         
-    // struct linger linger_;
-    // linger_.l_onoff = 0;
-    // linger_.l_linger = 0;
-    // setsockopt(sock, SOL_SOCKET, SO_LINGER,(const char *) &linger_, sizeof(linger_));
     return sock;
 }
 
