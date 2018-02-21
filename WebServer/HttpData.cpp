@@ -222,6 +222,12 @@ void HttpData::handleRead()
         if (!error_ && state_ == STATE_FINISH)
         {
             this->reset();
+            if (inBuffer_.size() > 0)
+            {
+                if (connectionState_ != H_DISCONNECTING)
+                    handleRead();
+            }
+
             // if ((keepAlive_ || inBuffer_.size() > 0) && connectionState_ == H_CONNECTED)
             // {
             //     this->reset();
@@ -282,6 +288,10 @@ void HttpData::handleConn()
             //cout << "close normally" << endl;
             loop_->shutdown(channel_);
             loop_->runInLoop(bind(&HttpData::handleClose, shared_from_this()));
+            // events_ |= (EPOLLIN | EPOLLET);
+            // //events_ |= (EPOLLIN | EPOLLET | EPOLLONESHOT);
+            // int timeout = DEFAULT_KEEP_ALIVE_TIME;
+            // loop_->updatePoller(channel_, timeout);
         }
     }
     else if (!error_ && connectionState_ == H_DISCONNECTING && (events_ & EPOLLOUT))
@@ -537,7 +547,7 @@ AnalysisState HttpData::analysisRequest()
     {
         string header;
         header += "HTTP/1.1 200 OK\r\n";
-        if(headers_.find("Connection") != headers_.end() && headers_["Connection"] == "Keep-Alive")
+        if(headers_.find("Connection") != headers_.end() && (headers_["Connection"] == "Keep-Alive" || headers_["Connection"] == "keep-alive"))
         {
             keepAlive_ = true;
             header += string("Connection: Keep-Alive\r\n") + "Keep-Alive: timeout=" + to_string(DEFAULT_KEEP_ALIVE_TIME) + "\r\n";
