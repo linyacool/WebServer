@@ -6,7 +6,11 @@
   
 ## Introduction  
 
-* 本项目为C++11编写的Web服务器，解析了get、head请求，可处理静态资源，支持HTTP长连接，并实现了异步日志，记录服务器运行状态。  
+本项目为C++11编写的Web服务器，解析了get、head请求，可处理静态资源，支持HTTP长连接，支持管线化请求，并实现了异步日志，记录服务器运行状态。  
+
+把自己的个人简历放在了自己写的服务器上，http://www.linya.pub/
+云主机在新加坡，可能不稳定。
+
 
 | Part Ⅰ | Part Ⅱ | Part Ⅲ | Part Ⅳ | Part Ⅴ |
 | :--------: | :---------: | :---------: | :---------: | :---------: |
@@ -38,6 +42,11 @@
 
 并发模型为Reactor+非阻塞IO+线程池，新连接Round Robin分配，详细介绍请参考[并发模型](https://github.com/linyacool/WebServer/blob/master/并发模型.md)
 ![并发模型](https://github.com/linyacool/WebServer/blob/master/datum/model.png)
+
+## 代码统计
+
+![cloc](https://github.com/linyacool/WebServer/blob/master/datum/cloc.png)
+
 
 ## Others
 除了项目基本的代码，进服务器进行压测时，对开源测试工具Webbench增加了Keep-Alive选项和测试功能: 改写后的[Webbench](https://github.com/linyacool/WebBench)
