@@ -575,7 +575,7 @@ AnalysisState HttpData::analysisRequest()
         }
         header += "Content-type: " + filetype + "\r\n";
         header += "Content-length: " + to_string(sbuf.st_size) + "\r\n";
-        header += "Host: www.linya.pub\r\n";
+        header += "Server: LinYa's Web Server\r\n";
         // 头部结束
         header += "\r\n";
         outBuffer_ += header;
