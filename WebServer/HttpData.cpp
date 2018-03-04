@@ -31,7 +31,7 @@ void MimeType::init()
     mime[".gif"] = "image/gif";
     mime[".gz"] = "application/x-gzip";
     mime[".htm"] = "text/html";
-    mime[".ico"] = "application/x-ico";
+    mime[".ico"] = "image/x-icon";
     mime[".jpg"] = "image/jpeg";
     mime[".png"] = "image/png";
     mime[".txt"] = "text/plain";
