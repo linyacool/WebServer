@@ -104,6 +104,7 @@ void HttpData::handleRead()
     {
         bool zero = false;
         int read_num = readn(fd_, inBuffer_, zero);
+        LOG << "Request: " << inBuffer_;
         if (connectionState_ == H_DISCONNECTING)
         {
             inBuffer_.clear();
@@ -606,9 +607,9 @@ void HttpData::handleError(int fd, int err_num, string short_msg)
 
     header_buff += "HTTP/1.1 " + to_string(err_num) + short_msg + "\r\n";
     header_buff += "Content-type: text/html\r\n";
-    header_buff += "Connection: close\r\n";
+    header_buff += "Connection: Close\r\n";
     header_buff += "Content-length: " + to_string(body_buff.size()) + "\r\n";
-    header_buff += "Host: www.linya.pub\r\n";
+    header_buff += "Server: LinYa's Web Server\r\n";;
     header_buff += "\r\n";
     // 错误处理不考虑writen不完的情况
     sprintf(send_buff, "%s", header_buff.c_str());
