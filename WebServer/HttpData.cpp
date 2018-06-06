@@ -670,7 +670,6 @@ AnalysisState HttpData::analysisRequest()
         int src_fd = open(fileName_.c_str(), O_RDONLY, 0);
         if (src_fd < 0)
         {
-          munmap(src_addr, sbuf.st_size);
           outBuffer_.clear();
           handleError(fd_, 404, "Not Found!");
           return ANALYSIS_ERROR;
