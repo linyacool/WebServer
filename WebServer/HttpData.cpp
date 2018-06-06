@@ -668,6 +668,13 @@ AnalysisState HttpData::analysisRequest()
             return ANALYSIS_SUCCESS;
 
         int src_fd = open(fileName_.c_str(), O_RDONLY, 0);
+        if (src_fd < 0)
+        {
+          munmap(src_addr, sbuf.st_size);
+          outBuffer_.clear();
+          handleError(fd_, 404, "Not Found!");
+          return ANALYSIS_ERROR;
+        }
         char *src_addr = static_cast<char*>(mmap(NULL, sbuf.st_size, PROT_READ, MAP_PRIVATE, src_fd, 0));
         close(src_fd);
         outBuffer_ += string(src_addr, src_addr + sbuf.st_size);;
