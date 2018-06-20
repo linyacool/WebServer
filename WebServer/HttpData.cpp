@@ -674,17 +674,18 @@ AnalysisState HttpData::analysisRequest()
           handleError(fd_, 404, "Not Found!");
           return ANALYSIS_ERROR;
         }
-        void *mmapRet = mmap(NULL, sbuf.st_size, PROT_READ, MAP_PRIVATE, src_fd, 0);
-        close(src_fd);
-        if (mmapRet == (void *)-1)
-        {
-          outBuffer_.clear();
-          handleError(fd_, 404, "Not Found!");
-          return ANALYSIS_ERROR;
-        }
+		void *mmapRet = mmap(NULL, sbuf.st_size, PROT_READ, MAP_PRIVATE, src_fd, 0);
+		close(src_fd);
+		if (mmapRet == (void *)-1)
+		{
+			munmap(mmapRet, sbuf.st_size);
+			outBuffer_.clear();
+			handleError(fd_, 404, "Not Found!");
+			return ANALYSIS_ERROR;
+		}
         char *src_addr = static_cast<char*>(mmapRet);
         outBuffer_ += string(src_addr, src_addr + sbuf.st_size);;
-        munmap(src_addr, sbuf.st_size);
+        munmap(mmapRet, sbuf.st_size);
         return ANALYSIS_SUCCESS;
     }
     return ANALYSIS_ERROR;
