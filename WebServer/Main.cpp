@@ -10,7 +10,7 @@ int main(int argc, char *argv[])
 {
     int threadNum = 4;
     int port = 80;
-    std::string logPath = "~/WebServer.log";
+    std::string logPath = "./WebServer.log";
 
     // parse args
     int opt;
