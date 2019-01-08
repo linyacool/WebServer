@@ -20,7 +20,7 @@ AsyncLogging::AsyncLogging(std::string logFileName_,int flushInterval)
     buffers_(),
     latch_(1)
 {
-    assert(logFileName_.size() > 1 && logFileName_[0] == '/');
+    assert(logFileName_.size() > 1);
     currentBuffer_->bzero();
     nextBuffer_->bzero();
     buffers_.reserve(16);
