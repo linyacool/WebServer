@@ -9,7 +9,7 @@ OBJS    := $(patsubst %.cpp,%.o,$(SOURCE))
 
 TARGET  := WebServer
 CC      := g++
-LIBS    := -lpthread -lopencv_core -lopencv_imgproc -lopencv_highgui -lopencv_imgcodecs
+LIBS    := -lpthread
 INCLUDE:= -I./usr/local/lib
 CFLAGS  := -std=c++11 -g -Wall -O3 -D_PTHREADS
 CXXFLAGS:= $(CFLAGS)
