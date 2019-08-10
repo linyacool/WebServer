@@ -17,15 +17,20 @@ public:
 
     void append(const char* logline, int len);
     void flush();
-    bool rollFile();
+    void rollFile();
 
 private:
     void append_unlocked(const char* logline, int len);
+    // basename.年月日_时分秒.主机名.进程号.log
+    std::string getFilename();
+    
+    static const int KMaxFileSize=1024*1024*1024; // 日志到达1G时切换
 
     const std::string basename_;
     const int flushEveryN_;
 
     int count_;
+    int curSize_;
     std::unique_ptr<MutexLock> mutex_;
     std::unique_ptr<AppendFile> file_;
 };
