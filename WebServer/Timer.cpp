@@ -23,7 +23,8 @@ TimerNode::~TimerNode()
 }
 
 TimerNode::TimerNode(TimerNode &tn):
-    SPHttpData(tn.SPHttpData)
+    SPHttpData(tn.SPHttpData),
+    expiredTime_(0)
 { }
 
 
