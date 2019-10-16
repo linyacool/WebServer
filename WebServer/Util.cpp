@@ -238,7 +238,10 @@ int socket_bind_listen(int port)
     // 消除bind时"Address already in use"错误
     int optval = 1;
     if(setsockopt(listen_fd, SOL_SOCKET,  SO_REUSEADDR, &optval, sizeof(optval)) == -1)
+    {
+        close(listen_fd);
         return -1;
+    }
 
     // 设置服务器IP和Port，和监听描述副绑定
     struct sockaddr_in server_addr;
@@ -247,11 +250,17 @@ int socket_bind_listen(int port)
     server_addr.sin_addr.s_addr = htonl(INADDR_ANY);
     server_addr.sin_port = htons((unsigned short)port);
     if(bind(listen_fd, (struct sockaddr *)&server_addr, sizeof(server_addr)) == -1)
+    {
+        close(listen_fd);
         return -1;
+    }
 
     // 开始监听，最大等待队列长为LISTENQ
     if(listen(listen_fd, 2048) == -1)
+    {
+        close(listen_fd);
         return -1;
+    }
 
     // 无效监听描述符
     if(listen_fd == -1)

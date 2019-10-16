@@ -58,8 +58,11 @@ int Socket(const char *host, int clientPort)
     // if(setsockopt(sock, SOL_SOCKET,  SO_REUSEPORT, &optval, sizeof(optval)) == -1)
     //     return -1;
     if (connect(sock, (struct sockaddr *)&ad, sizeof(ad)) < 0)
+    {
+        close(sock);
         return -1;
-        
+    }
+
     return sock;
 }
 
