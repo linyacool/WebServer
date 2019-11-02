@@ -13,7 +13,7 @@
 static pthread_once_t once_control_ = PTHREAD_ONCE_INIT;
 static AsyncLogging *AsyncLogger_;
 
-std::string Logger::logFileName_ = "/linya_WebServer.log";
+std::string Logger::logFileName_ = "./WebServer.log";
 
 void once_init()
 {
