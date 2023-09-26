@@ -7,7 +7,11 @@
 #include "base/Logging.h"
 #include "base/noncopyable.h"
 
-
+/**
+ * EventLoop池，可以通过getNextLoop获取下一个eventLoop
+ * 就是轮转的方式获取下一个eventLoop
+ * 
+*/
 class EventLoopThreadPool : noncopyable {
  public:
   EventLoopThreadPool(EventLoop* baseLoop, int numThreads);

@@ -17,8 +17,11 @@
 using namespace std;
 
 namespace CurrentThread {
+  // 当前线程的tid
 __thread int t_cachedTid = 0;
+  // 当前线程tid的字符形式
 __thread char t_tidString[32];
+  // tid的长度 
 __thread int t_tidStringLength = 6;
 __thread const char* t_threadName = "default";
 }
@@ -88,7 +91,13 @@ void Thread::setDefaultName() {
     name_ = buf;
   }
 }
-
+/**
+ * 1. 设置开始标志位
+ * 2. 创建ThreadData，包括线程函数和默认姓名
+ * 3. 创建新线程，函数为startTrhead，函数的参数为第二步创建的ThreadData
+ * 4. 创建失败，删除ThreadData
+ *    创建成功，等待信号量
+*/
 void Thread::start() {
   assert(!started_);
   started_ = true;

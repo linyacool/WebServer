@@ -23,7 +23,14 @@ Server::Server(EventLoop *loop, int threadNum, int port)
     abort();
   }
 }
-
+/**
+ * 服务器启动
+ * 1. 启动线程池
+ * 2. 设置acceptChannel监听读事件、ET模式
+ * 3. 设置读处理、连接时间
+ * 4. acceptChannel添加到loop里进行监听
+ * 5. 设置开始标志started_ = true
+*/
 void Server::start() {
   eventLoopThreadPool_->start();
   // acceptChannel_->setEvents(EPOLLIN | EPOLLET | EPOLLONESHOT);
@@ -33,6 +40,15 @@ void Server::start() {
   loop_->addToPoller(acceptChannel_, 0);
   started_ = true;
 }
+/**
+ * 处理新连接事件
+ * 1. 通过accept从listenFd监听的全连接队列里获取一个socket：accept_fd
+ * 2. 获取loop线程池的下一个eventLoop
+ * 3. 判断是否超过了预先设置的100k的并发数，如果超过直接close这个socket
+ * 4. 设置socket为非阻塞模式和noDelay
+ * 5. 生成HttpData，绑定loop和socket
+ * 6. 把当前的HttpData插入当前loop的队列中
+*/
 
 void Server::handNewConn() {
   struct sockaddr_in client_addr;

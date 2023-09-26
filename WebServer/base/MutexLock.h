@@ -5,7 +5,11 @@
 #include <cstdio>
 #include "noncopyable.h"
 
-
+/**
+ * 互斥锁
+ * 提供lock、unlock、get获得互斥变量的能力
+ * 
+*/
 class MutexLock : noncopyable {
  public:
   MutexLock() { pthread_mutex_init(&mutex, NULL); }
@@ -24,7 +28,9 @@ class MutexLock : noncopyable {
  private:
   friend class Condition;
 };
-
+/**
+ * 对互斥锁的封装，通过局部变量的构造自动加锁和自动析构实现解锁
+*/
 class MutexLockGuard : noncopyable {
  public:
   explicit MutexLockGuard(MutexLock &_mutex) : mutex(_mutex) { mutex.lock(); }

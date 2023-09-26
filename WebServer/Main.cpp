@@ -15,6 +15,7 @@ int main(int argc, char *argv[]) {
   // parse args
   int opt;
   const char *str = "t:l:p:";
+  // optarg在getopt头文件的getopt_core 用来传递获取到的参数
   while ((opt = getopt(argc, argv, str)) != -1) {
     switch (opt) {
       case 't': {
