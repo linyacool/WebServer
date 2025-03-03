@@ -528,7 +528,7 @@ AnalysisState HttpData::analysisRequest() {
     // echo test
     if (fileName_ == "hello") {
       outBuffer_ =
-          "HTTP/1.1 200 OK\r\nContent-type: text/plain\r\n\r\nHello World";
+          "HTTP/1.1 200 OK\r\nContent-type: text/plain; charset=utf-8\r\nContent-Length: 11\r\n\r\nHello World";
       return ANALYSIS_SUCCESS;
     }
     if (fileName_ == "favicon.ico") {
@@ -591,7 +591,7 @@ void HttpData::handleError(int fd, int err_num, string short_msg) {
   body_buff += "<hr><em> LinYa's Web Server</em>\n</body></html>";
 
   header_buff += "HTTP/1.1 " + to_string(err_num) + short_msg + "\r\n";
-  header_buff += "Content-Type: text/html\r\n";
+  header_buff += "Content-Type: text/html; charset=utf-8\r\n";
   header_buff += "Connection: Close\r\n";
   header_buff += "Content-Length: " + to_string(body_buff.size()) + "\r\n";
   header_buff += "Server: LinYa's Web Server\r\n";
